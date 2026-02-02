@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - N.Mudasir</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+        }
+
+        header {
+            background: #000;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(255, 193, 7, 0.3);
+            border-bottom: 2px solid #ffc107;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            color: #ffc107;
+            text-shadow: 0 0 20px rgba(255, 193, 7, 0.5);
+        }
+
+        .menu-icon {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+        }
+
+        .menu-icon span {
+            width: 28px;
+            height: 3px;
+            background: #ffc107;
+            border-radius: 2px;
+        }
+
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background: #000;
+            border-left: 3px solid #ffc107;
+            z-index: 2500;
+            transition: right 0.4s ease;
+            padding: 80px 0 20px 0;
+        }
+
+        .side-menu.active { right: 0; }
+
+        .side-menu ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .side-menu ul li {
+            border-bottom: 1px solid #333;
+        }
+
+        .side-menu ul li a {
+            display: block;
+            padding: 20px 30px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .side-menu ul li a:hover {
+            background: rgba(255, 193, 7, 0.1);
+            color: #ffc107;
+        }
+
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            display: none;
+        }
+
+        .menu-overlay.active { display: block; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .page-title {
+            font-size: 48px;
+            color: #ffc107;
+            text-align: center;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+        }
+
+        .about-content {
+            display: flex;
+            gap: 60px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .profile-pic {
+            width: 300px;
+            height: 300px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #ffc107, #ff9800);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 100px;
+            font-weight: bold;
+            color: #000;
+            box-shadow: 0 15px 50px rgba(255, 193, 7, 0.4);
+            margin: 0 auto;
+            border: 4px solid #000;
+            overflow: hidden;
+        }
+
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .about-text {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .about-text p {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #ccc;
+            text-align: left;
+        }
+
+        .skills-list {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .skill-tag {
+            background: #000;
+            border: 2px solid #ffc107;
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: #ffc107;
+            font-weight: 600;
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            width: 70px;
+            height: 70px;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            text-decoration: none;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); }
+        }
+
+        footer {
+            background: #000;
+            text-align: center;
+            padding: 50px 20px;
+            border-top: 3px solid #ffc107;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+
+    <div class="side-menu" id="sideMenu">
+        <ul>
+            <li><a href="index.html">🏠 Home</a></li>
+            <li><a href="about.html">👤 About</a></li>
+            <li><a href="pricing.html">💰 Pricing</a></li>
+            <li><a href="contact.html">📧 Contact</a></li>
+            <li><a href="admin.html">🔐 Admin Panel</a></li>
+        </ul>
+    </div>
+
+    <a href="https://wa.me/923347124766" class="whatsapp-float" target="_blank">
+        <span style="font-size: 40px;">💬</span>
+    </a>
+
+    <header>
+        <nav>
+            <div class="logo">N.MUDASIR</div>
+            <div class="menu-icon" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1 class="page-title">About Me</h1>
+        
+        <div class="about-content">
+            <div class="about-image">
+                <div class="profile-pic" id="profilePicContainer">
+                    <span>NM</span>
+                </div>
+            </div>
+            
+            <div class="about-text">
+                <p id="aboutText1">👋 Hello! I'm <strong>N.Mudasir</strong>, a passionate professional web developer dedicated to transforming your digital dreams into reality.</p>
+                
+                <p id="aboutText2">💻 I specialize in building modern, responsive websites using WordPress, HTML5, CSS3, JavaScript, React, PHP, and MySQL.</p>
+                
+                <p id="aboutText3">🚀 With years of experience, I'm committed to delivering top-quality work that exceeds expectations.</p>
+                
+                <div class="skills-list">
+                    <span class="skill-tag">WordPress</span>
+                    <span class="skill-tag">HTML5/CSS3</span>
+                    <span class="skill-tag">JavaScript</span>
+                    <span class="skill-tag">PHP</span>
+                    <span class="skill-tag">SEO</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 N.Mudasir. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('sideMenu').classList.toggle('active');
+            document.getElementById('menuOverlay').classList.toggle('active');
+        }
+
+        // Load saved content from localStorage
+        window.onload = function() {
+            const aboutText1 = localStorage.getItem('aboutText1');
+            const aboutText2 = localStorage.getItem('aboutText2');
+            const aboutText3 = localStorage.getItem('aboutText3');
+            const profileImage = localStorage.getItem('profileImage');
+
+            if (aboutText1) document.getElementById('aboutText1').innerHTML = aboutText1;
+            if (aboutText2) document.getElementById('aboutText2').innerHTML = aboutText2;
+            if (aboutText3) document.getElementById('aboutText3').innerHTML = aboutText3;
+            if (profileImage) {
+                document.getElementById('profilePicContainer').innerHTML = '<img src="' + profileImage + '" alt="Profile">';
+            }
+        }
+    </script>
+</body>
+</html>
