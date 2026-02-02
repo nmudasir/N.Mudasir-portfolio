@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - N.Mudasir</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+        }
+
+        header {
+            background: #000;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(255, 193, 7, 0.3);
+            border-bottom: 2px solid #ffc107;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            color: #ffc107;
+        }
+
+        .menu-icon {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+        }
+
+        .menu-icon span {
+            width: 28px;
+            height: 3px;
+            background: #ffc107;
+        }
+
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background: #000;
+            border-left: 3px solid #ffc107;
+            z-index: 2500;
+            transition: right 0.4s ease;
+            padding: 80px 0 20px 0;
+        }
+
+        .side-menu.active { right: 0; }
+
+        .side-menu ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .side-menu ul li {
+            border-bottom: 1px solid #333;
+        }
+
+        .side-menu ul li a {
+            display: block;
+            padding: 20px 30px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .side-menu ul li a:hover {
+            background: rgba(255, 193, 7, 0.1);
+            color: #ffc107;
+        }
+
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            display: none;
+        }
+
+        .menu-overlay.active { display: block; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .page-title {
+            font-size: 48px;
+            color: #ffc107;
+            text-align: center;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .pricing-card {
+            background: #000;
+            border: 2px solid #333;
+            border-radius: 10px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            border-color: #ffc107;
+            box-shadow: 0 15px 50px rgba(255, 193, 7, 0.3);
+        }
+
+        .pricing-card.featured {
+            border-color: #ffc107;
+            border-width: 3px;
+        }
+
+        .pricing-badge {
+            background: #ffc107;
+            color: #000;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .pricing-card h3 {
+            font-size: 28px;
+            color: #ffc107;
+            margin-bottom: 20px;
+        }
+
+        .price {
+            font-size: 48px;
+            font-weight: bold;
+            color: #fff;
+            margin: 20px 0;
+        }
+
+        .price-currency {
+            font-size: 24px;
+            color: #ffc107;
+        }
+
+        .pricing-features {
+            list-style: none;
+            padding: 0;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: 12px 0;
+            color: #ccc;
+            border-bottom: 1px solid #333;
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            color: #ffc107;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .pricing-features li.unavailable {
+            color: #666;
+        }
+
+        .pricing-features li.unavailable::before {
+            content: '✗';
+            color: #666;
+        }
+
+        .pricing-btn {
+            background: #ffc107;
+            color: #000;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+
+        .pricing-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            width: 70px;
+            height: 70px;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            text-decoration: none;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); }
+        }
+
+        footer {
+            background: #000;
+            text-align: center;
+            padding: 50px 20px;
+            border-top: 3px solid #ffc107;
+            margin-top: 80px;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+
+    <div class="side-menu" id="sideMenu">
+        <ul>
+            <li><a href="index.html">🏠 Home</a></li>
+            <li><a href="about.html">👤 About</a></li>
+            <li><a href="pricing.html">💰 Pricing</a></li>
+            <li><a href="contact.html">📧 Contact</a></li>
+            <li><a href="admin.html">🔐 Admin Panel</a></li>
+        </ul>
+    </div>
+
+    <a href="https://wa.me/923347124766" class="whatsapp-float" target="_blank">
+        <span style="font-size: 40px;">💬</span>
+    </a>
+
+    <header>
+        <nav>
+            <div class="logo">N.MUDASIR</div>
+            <div class="menu-icon" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1 class="page-title">Pricing Plans</h1>
+        
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3 id="plan1Title">Basic Website</h3>
+                <div class="price">
+                    <span class="price-currency">PKR</span> <span id="plan1Price">25,000</span>
+                </div>
+                <p style="color: #666;">One-time payment</p>
+                <ul class="pricing-features">
+                    <li id="plan1Feature1">5 Pages Website</li>
+                    <li id="plan1Feature2">Responsive Design</li>
+                    <li id="plan1Feature3">Contact Form</li>
+                    <li id="plan1Feature4">Basic SEO</li>
+                    <li id="plan1Feature5">1 Month Support</li>
+                    <li class="unavailable">E-commerce</li>
+                    <li class="unavailable">Advanced Features</li>
+                </ul>
+                <a href="https://wa.me/923347124766?text=Hi!%20Basic%20Website%20PKR%2025,000" class="pricing-btn" target="_blank">Get Started</a>
+            </div>
+
+            <div class="pricing-card featured">
+                <span class="pricing-badge">POPULAR</span>
+                <h3 id="plan2Title">Professional Website</h3>
+                <div class="price">
+                    <span class="price-currency">PKR</span> <span id="plan2Price">50,000</span>
+                </div>
+                <p style="color: #666;">One-time payment</p>
+                <ul class="pricing-features">
+                    <li id="plan2Feature1">10 Pages Website</li>
+                    <li id="plan2Feature2">Premium Design</li>
+                    <li id="plan2Feature3">Contact Forms</li>
+                    <li id="plan2Feature4">Advanced SEO</li>
+                    <li id="plan2Feature5">3 Months Support</li>
+                    <li id="plan2Feature6">Social Media</li>
+                    <li id="plan2Feature7">Google Analytics</li>
+                </ul>
+                <a href="https://wa.me/923347124766?text=Hi!%20Professional%20PKR%2050,000" class="pricing-btn" target="_blank">Get Started</a>
+            </div>
+
+            <div class="pricing-card">
+                <h3 id="plan3Title">E-Commerce Store</h3>
+                <div class="price">
+                    <span class="price-currency">PKR</span> <span id="plan3Price">100,000</span>
+                </div>
+                <p style="color: #666;">One-time payment</p>
+                <ul class="pricing-features">
+                    <li id="plan3Feature1">Unlimited Products</li>
+                    <li id="plan3Feature2">Payment Gateway</li>
+                    <li id="plan3Feature3">Shopping Cart</li>
+                    <li id="plan3Feature4">Order Management</li>
+                    <li id="plan3Feature5">6 Months Support</li>
+                    <li id="plan3Feature6">Inventory System</li>
+                    <li id="plan3Feature7">Mobile App Ready</li>
+                </ul>
+                <a href="https://wa.me/923347124766?text=Hi!%20E-Commerce%20PKR%20100,000" class="pricing-btn" target="_blank">Get Started</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 N.Mudasir. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('sideMenu').classList.toggle('active');
+            document.getElementById('menuOverlay').classList.toggle('active');
+        }
+
+        // Load pricing from localStorage
+        window.onload = function() {
+            // Plan 1
+            const p1Title = localStorage.getItem('plan1Title');
+            const p1Price = localStorage.getItem('plan1Price');
+            const p1F1 = localStorage.getItem('plan1Feature1');
+            const p1F2 = localStorage.getItem('plan1Feature2');
+            const p1F3 = localStorage.getItem('plan1Feature3');
+            const p1F4 = localStorage.getItem('plan1Feature4');
+            const p1F5 = localStorage.getItem('plan1Feature5');
+
+            if (p1Title) document.getElementById('plan1Title').textContent = p1Title;
+            if (p1Price) document.getElementById('plan1Price').textContent = Number(p1Price).toLocaleString();
+            if (p1F1) document.getElementById('plan1Feature1').textContent = p1F1;
+            if (p1F2) document.getElementById('plan1Feature2').textContent = p1F2;
+            if (p1F3) document.getElementById('plan1Feature3').textContent = p1F3;
+            if (p1F4) document.getElementById('plan1Feature4').textContent = p1F4;
+            if (p1F5) document.getElementById('plan1Feature5').textContent = p1F5;
+
+            // Plan 2
+            const p2Title = localStorage.getItem('plan2Title');
+            const p2Price = localStorage.getItem('plan2Price');
+            const p2F1 = localStorage.getItem('plan2Feature1');
+            const p2F2 = localStorage.getItem('plan2Feature2');
+            const p2F3 = localStorage.getItem('plan2Feature3');
+            const p2F4 = localStorage.getItem('plan2Feature4');
+            const p2F5 = localStorage.getItem('plan2Feature5');
+            const p2F6 = localStorage.getItem('plan2Feature6');
+            const p2F7 = localStorage.getItem('plan2Feature7');
+
+            if (p2Title) document.getElementById('plan2Title').textContent = p2Title;
+            if (p2Price) document.getElementById('plan2Price').textContent = Number(p2Price).toLocaleString();
+            if (p2F1) document.getElementById('plan2Feature1').textContent = p2F1;
+            if (p2F2) document.getElementById('plan2Feature2').textContent = p2F2;
+            if (p2F3) document.getElementById('plan2Feature3').textContent = p2F3;
+            if (p2F4) document.getElementById('plan2Feature4').textContent = p2F4;
+            if (p2F5) document.getElementById('plan2Feature5').textContent = p2F5;
+            if (p2F6) document.getElementById('plan2Feature6').textContent = p2F6;
+            if (p2F7) document.getElementById('plan2Feature7').textContent = p2F7;
+
+            // Plan 3
+            const p3Title = localStorage.getItem('plan3Title');
+            const p3Price = localStorage.getItem('plan3Price');
+            const p3F1 = localStorage.getItem('plan3Feature1');
+            const p3F2 = localStorage.getItem('plan3Feature2');
+            const p3F3 = localStorage.getItem('plan3Feature3');
+            const p3F4 = localStorage.getItem('plan3Feature4');
+            const p3F5 = localStorage.getItem('plan3Feature5');
+            const p3F6 = localStorage.getItem('plan3Feature6');
+            const p3F7 = localStorage.getItem('plan3Feature7');
+
+            if (p3Title) document.getElementById('plan3Title').textContent = p3Title;
+            if (p3Price) document.getElementById('plan3Price').textContent = Number(p3Price).toLocaleString();
+            if (p3F1) document.getElementById('plan3Feature1').textContent = p3F1;
+            if (p3F2) document.getElementById('plan3Feature2').textContent = p3F2;
+            if (p3F3) document.getElementById('plan3Feature3').textContent = p3F3;
+            if (p3F4) document.getElementById('plan3Feature4').textContent = p3F4;
+            if (p3F5) document.getElementById('plan3Feature5').textContent = p3F5;
+            if (p3F6) document.getElementById('plan3Feature6').textContent = p3F6;
+            if (p3F7) document.getElementById('plan3Feature7').textContent = p3F7;
+        }
+    </script>
+</body>
+</html>
